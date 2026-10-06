@@ -53,6 +53,11 @@ class Movie(BaseModel):
     release_date: str | None = None
     overview: str
 
+class HealthResponse(BaseModel):
+    status: str
+    redis_connected: bool
+    environment: str
+
 # Redirect root URL directly to Swagger docs
 @app.get("/", include_in_schema=False)
 async def root():
@@ -140,7 +145,7 @@ async def get_random_movie(user_input: str, response: Response):
         raise HTTPException(status_code=404, detail="No movies found.")
     return random.choice(movies)
 
-@app.get("/health")
+@app.get("/health", response_model=HealthResponse)
 async def health_check():
     try:
         redis_alive = await app.state.redis.ping()
