@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import httpx
 import redis.asyncio as aioredis
@@ -31,11 +32,19 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="TMDB Movie Fetcher & Caching API",
-    description="Asynchronous REST API featuring Cache-Aside architecture with Redis and automated fallback.",
+    description="A fast REST API that fetches movies from TMDB and caches them with Redis.",
     version="1.0.0",
     lifespan=lifespan
 )
 
+# Allow Swagger UI to make requests without being blocked by the browser.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Define the exact fields we want to return for each movie
 class Movie(BaseModel):
     id: int
