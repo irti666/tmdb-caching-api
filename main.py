@@ -4,6 +4,7 @@ import random
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Response
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import httpx
 import redis.asyncio as aioredis
@@ -42,6 +43,11 @@ class Movie(BaseModel):
     vote_average: float
     release_date: str | None = None
     overview: str
+
+# Redirect root URL directly to Swagger docs
+@app.get("/", include_in_schema=False)
+async def root():
+    return RedirectResponse(url="/docs")
 
 @app.get("/movies", response_model=list[Movie])
 async def get_movies(user_input: str, response: Response):
