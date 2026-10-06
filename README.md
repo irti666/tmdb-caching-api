@@ -12,7 +12,7 @@ A fast backend API built with FastAPI that fetches and searches movie data from 
 - **Interactive API Docs (Swagger UI):** <https://tmdb-caching-api.onrender.com/docs>
 - **Health Check Endpoint:** <https://tmdb-caching-api.onrender.com/health>
 
-<span style="color:red; font-weight:bold;">⚠️ Please Note: The app is hosted on Render's free tier. If no requests are made for a while, the server goes to sleep to save resources. When you first open the link or execute an endpoint, it might take 30 to 50 seconds to wake back up. Once awake, all requests will respond normally and fast!</span>
+⚠️ Please Note: The app is hosted on Render's free tier. If no requests are made for a while, the server goes to sleep to save resources. When you first open the link or execute an endpoint, it might take 30 to 50 seconds to wake back up. Once awake, all requests will respond normally and fast!</span>
 
 ## How It Works
 
